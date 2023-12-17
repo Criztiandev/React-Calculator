@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { ButtonDataProps } from "../interface/button";
 import PopSound from "../assets/audio/pop-3.mp3";
 import useSound from "use-sound";
+import "../interface/use-sound";
+
 interface Props extends ButtonDataProps {}
 const Buttons = ({ title, ...props }: Props) => {
   const [playActive] = useSound(PopSound, { volume: 2 });
