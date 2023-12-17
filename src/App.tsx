@@ -6,6 +6,19 @@ import {
   outerButtonData,
 } from "./data/button.data";
 
+const calculateResult = (value: string) => {
+  try {
+    if (value.length > 22) {
+      return eval(value.slice(0, 22)).toString() || 0;
+    }
+
+    return eval(value).toString();
+  } catch (e) {
+    alert(e);
+    return "";
+  }
+};
+
 function App() {
   const [currentInput, setCurrentInput] = useState<string>("");
 
@@ -15,8 +28,7 @@ function App() {
 
     if (operator.includes(currentValue)) {
       try {
-        const evaludatedResult = eval(currentInput) || 0;
-        setCurrentInput(evaludatedResult);
+        setCurrentInput(calculateResult(currentInput) || 0);
       } catch (e) {
         const lastIndex = currentInput.length - 1;
         if (operator.includes(currentInput[lastIndex])) {
@@ -44,17 +56,18 @@ function App() {
 
     // result
     if (currentValue === "=") {
-      const evaludatedResult = eval(currentInput).toString();
-      setCurrentInput(evaludatedResult);
+      setCurrentInput(calculateResult(currentInput));
     }
   };
 
   return (
     <div
-      className="min-w-[300px] max-w-[350px] border-2 border-black rounded-[10px] bg-primary overflow-hidden shadow-primary"
+      className="min-w-[300px] max-w-[350px] border-2 border-black rounded-[10px]  bg-primary shadow-primary"
       style={{ boxShadow: "5px 5px 0px 5px black" }}>
-      <div className="flex justify-end items-end mb-8 flex-col p-4">
-        <span className="value font-bold text-[48px]">{currentInput || 0}</span>
+      <div className="flex justify-end items-end mb-8 p-4">
+        <span className="value font-bold text-[48px] w-full  text-right ">
+          {currentInput.substring(0, 11) || 0}
+        </span>
       </div>
       <div className="bg-secondary pt-8 p-4 rounded-t-2xl">
         <div className="grid grid-cols-4 gap-4 mb-4">
